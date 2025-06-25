@@ -19,7 +19,7 @@ function StatistichePage() {
   }, []);
 
   const fetchStatistiche = async (token) => {
-    let url = 'http://localhost:3001/api/eventi/statistiche';
+    let url = `${process.env.REACT_APP_API_URL}/eventi/statistiche`;
     if (dal || al) {
       const params = new URLSearchParams();
       if (dal) params.append('dal', dal);

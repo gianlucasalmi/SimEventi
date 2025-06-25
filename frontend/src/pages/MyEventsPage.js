@@ -9,7 +9,7 @@ function MyEventsPage() {
     const token = localStorage.getItem('token');
     if (token) {
       setUserInfo(jwtDecode(token));
-      fetch(`http://localhost:3001/api/iscrizioni`, {
+      fetch(`${process.env.REACT_APP_API_URL}/iscrizioni`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(res => res.json())
@@ -43,7 +43,7 @@ function MyEventsPage() {
                           headers: { Authorization: `Bearer ${token}` }
                         });
                         if (res.ok) {
-                          fetch(`http://localhost:3001/api/iscrizioni`, {
+                          fetch(`${process.env.REACT_APP_API_URL}/iscrizioni`, {
                             headers: { Authorization: `Bearer ${token}` }
                           })
                             .then(res => res.json())

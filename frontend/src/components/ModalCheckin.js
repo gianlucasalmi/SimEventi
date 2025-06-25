@@ -6,7 +6,7 @@ function ModalCheckin({ show, onClose, evento }) {
   useEffect(() => {
     if (show && evento) {
       // Recupera gli iscritti all'evento
-      fetch(`http://localhost:3001/api/eventi/${evento.EventoID}/iscritti`, {
+      fetch(`${process.env.REACT_APP_API_URL}/eventi/${evento.EventoID}/iscritti`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       })
         .then(res => res.json())
@@ -15,7 +15,7 @@ function ModalCheckin({ show, onClose, evento }) {
   }, [show, evento]);
 
   const handleCheckin = async (iscrizioneId) => {
-    const res = await fetch('http://localhost:3001/api/iscrizioni/checkin', {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/iscrizioni/checkin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

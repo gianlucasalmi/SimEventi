@@ -20,8 +20,11 @@ function App() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
         <Link className="navbar-brand" to="/">EVENTS FINDER</Link>
         <div className="collapse navbar-collapse">
-          <div className="navbar-nav me-auto">
+          <div className="navbar-nav mx-auto">
             {token && <Link className="nav-link" to="/dashboard">Dashboard</Link>}
+            {token && jwtDecode(token).Ruolo === 'Dipendente' && (
+              <Link className="nav-link" to="/mieventi">I miei eventi</Link>
+            )}
             {token && jwtDecode(token).Ruolo === 'Organizzatore' && (
               <Link className="nav-link" to="/statistiche">Statistiche</Link>
             )}

@@ -9,7 +9,6 @@ function MyEventsPage() {
     const token = localStorage.getItem('token');
     if (token) {
       setUserInfo(jwtDecode(token));
-      console.log('Token decodificato:', jwtDecode(token));
       fetch(`${process.env.REACT_APP_API_URL}/iscrizioni`, {
         headers: { Authorization: `Bearer ${token}` }
       })

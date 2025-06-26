@@ -9,6 +9,7 @@ function MyEventsPage() {
     const token = localStorage.getItem('token');
     if (token) {
       setUserInfo(jwtDecode(token));
+      console.log('Token decodificato:', jwtDecode(token));
       fetch(`${process.env.REACT_APP_API_URL}/iscrizioni`, {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -38,7 +39,7 @@ function MyEventsPage() {
                     onClick={async () => {
                       const token = localStorage.getItem('token');
                       if (window.confirm('Vuoi annullare l\'iscrizione a questo evento?')) {
-                        const res = await fetch(`http://localhost:3001/api/iscrizioni/${i.IscrizioneID}`, {
+                        const res = await fetch(`${process.env.REACT_APP_API_URL}/iscrizioni/${i.IscrizioneID}`, {
                           method: 'DELETE',
                           headers: { Authorization: `Bearer ${token}` }
                         });

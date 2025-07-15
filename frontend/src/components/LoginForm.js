@@ -16,7 +16,14 @@ function LoginForm({ onLogin }) {
     if (result.token) {
       localStorage.setItem('token', result.token);
       onLogin(result.token);
-      navigate('/dashboard'); // reindirizza dopo login
+
+      // Reindirizza in base al ruolo
+      const user = JSON.parse(atob(result.token.split('.')[1]));
+      if (user.Ruolo === 'Dipendente') {
+        navigate('/mieventi');
+      } else if (user.Ruolo === 'Responsabile') {
+        navigate('/dashboard');
+      }
     } else {
       alert(result.error);
     }
@@ -24,10 +31,30 @@ function LoginForm({ onLogin }) {
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
-      <input name="Email" className="form-control mb-2" placeholder="Email" type="email" onChange={handleChange} />
-      <input name="Password" className="form-control mb-2" placeholder="Password" type="password" onChange={handleChange} />
-      <button className="btn btn-success w-100 mb-3" type="submit">Login</button>
-      <p className="text-center">Non hai un account? <Link to="/register">Registrati qui</Link></p>
+      <input
+        name="Email"
+        className="form-control mb-2"
+        placeholder="Email"
+        type="email"
+        value={formData.Email}
+        onChange={handleChange}
+        required
+      />
+      <input
+        name="Password"
+        className="form-control mb-2"
+        placeholder="Password"
+        type="password"
+        value={formData.Password}
+        onChange={handleChange}
+        required
+      />
+      <button className="btn btn-success w-100 mb-3" type="submit">
+        Login
+      </button>
+      <p className="text-center">
+        Non hai un account? <Link to="/register">Registrati qui</Link>
+      </p>
     </form>
   );
 }

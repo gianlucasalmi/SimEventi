@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+/// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -14,32 +14,31 @@ datasource db {
 }
 
 model Utente {
-  UtenteID Int     @id @default(autoincrement())
-  Nome     String
-  Cognome  String
-  Email    String  @unique
-  Password String
-  Ruolo    String
-
-  Iscrizioni Iscrizione[]
+  UtenteID     Int      @id @default(autoincrement())
+  Nome         String
+  Cognome      String
+  Email        String   @unique
+  Password     String
+  Ruolo        String   // 'Dipendente' o 'Responsabile'
+  richieste    RichiestaAcquisto[] @relation("Richiedente")
 }
 
-model Evento {
-  EventoID    Int     @id @default(autoincrement())
-  Titolo      String
-  Data        DateTime
-  Descrizione String?
-
-  Iscrizioni Iscrizione[]
+model CategoriaAcquisto {
+  CategoriaID  Int      @id @default(autoincrement())
+  Descrizione  String
+  richieste    RichiestaAcquisto[]
 }
 
-model Iscrizione {
-  IscrizioneID      Int      @id @default(autoincrement())
-  UtenteID          Int
-  EventoID          Int
-  CheckinEffettuato Boolean  @default(false)
-  OraCheckin        DateTime?
-
-  Utente Utente @relation(fields: [UtenteID], references: [UtenteID], onDelete: Cascade)
-  Evento Evento @relation(fields: [EventoID], references: [EventoID], onDelete: Cascade)
+model RichiestaAcquisto {
+  RichiestaID        Int      @id @default(autoincrement())
+  DataRichiesta      DateTime @default(now())
+  CategoriaID        Int
+  Oggetto            String   // Descrizione del bene
+  Quantità           Int
+  CostoUnitario      Float
+  Motivazione        String
+  Stato              String   // 'In attesa', 'Approvata', 'Rifiutata'
+  UtenteID           Int
+  richiedente        Utente   @relation("Richiedente", fields: [UtenteID], references: [UtenteID])
+  categoria          CategoriaAcquisto @relation(fields: [CategoriaID], references: [CategoriaID])
 }

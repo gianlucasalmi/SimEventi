@@ -39,6 +39,7 @@ router.get('/', verifyToken, async (req, res) => {
     }
     res.json(richieste);
   } catch (error) {
+    console.error('Errore backend richieste:', error); // Log dettagliato
     res.status(500).json({ error: 'Errore durante il recupero delle richieste' });
   }
 });

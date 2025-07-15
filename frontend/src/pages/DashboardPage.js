@@ -12,12 +12,15 @@ function DashboardPage() {
     if (token) {
       const decoded = jwtDecode(token);
       setUserInfo(decoded);
-      // Recupera richieste personali
       fetch(`${process.env.REACT_APP_API_URL}/richieste`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(res => res.json())
-        .then(data => setMieRichieste(data));
+        .then(data => {
+          console.log('Risposta richieste:', data); // Log della risposta
+          setMieRichieste(Array.isArray(data) ? data : []); // Gestione del caso non array
+        })
+        .catch(error => console.error('Errore fetch richieste:', error));
     }
   }, [showRichiestaModal]);
 
@@ -75,7 +78,7 @@ function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {mieRichieste.map(r => (
+              {Array.isArray(mieRichieste) && mieRichieste.map(r => (
                 <tr key={r.RichiestaID}>
                   <td>{r.Oggetto}</td>
                   <td>{r.Quantità}</td>
@@ -86,7 +89,7 @@ function DashboardPage() {
                   <td>{new Date(r.DataRichiesta).toLocaleDateString()}</td>
                 </tr>
               ))}
-              {mieRichieste.length === 0 && (
+              {Array.isArray(mieRichieste) && mieRichieste.length === 0 && (
                 <tr>
                   <td colSpan={7} className="text-center">Nessuna richiesta inviata</td>
                 </tr>

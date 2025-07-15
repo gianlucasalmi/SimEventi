@@ -33,11 +33,11 @@ model RichiestaAcquisto {
   RichiestaID        Int      @id @default(autoincrement())
   DataRichiesta      DateTime @default(now())
   CategoriaID        Int
-  Oggetto            String   // Descrizione del bene
+  Oggetto            String
   Quantità           Int
   CostoUnitario      Float
   Motivazione        String
-  Stato              String   // 'In attesa', 'Approvata', 'Rifiutata'
+  Stato              String
   UtenteID           Int
   richiedente        Utente   @relation("Richiedente", fields: [UtenteID], references: [UtenteID])
   categoria          CategoriaAcquisto @relation(fields: [CategoriaID], references: [CategoriaID])

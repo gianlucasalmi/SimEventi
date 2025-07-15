@@ -3,9 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-ro
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
-import StatistichePage from './pages/StatistichePage';
 import { jwtDecode } from 'jwt-decode';
-import MyEventsPage from './pages/MyEventsPage';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -22,12 +20,6 @@ function App() {
         <div className="collapse navbar-collapse">
           <div className="navbar-nav me-auto">
             {token && <Link className="nav-link" to="/dashboard">Dashboard</Link>}
-            {token && jwtDecode(token).Ruolo === 'Dipendente' && (
-              <Link className="nav-link" to="/mieventi">Materiali Disponibili</Link>
-            )}
-            {token && jwtDecode(token).Ruolo === 'Responsabile' && (
-              <Link className="nav-link" to="/statistiche">Richieste di Acquisto</Link>
-            )}
           </div>
           {token && (
             <button
@@ -49,8 +41,6 @@ function App() {
           path="/dashboard"
           element={token ? <DashboardPage /> : <Navigate to="/login" />}
         />
-        {/*<Route path="/statistiche" element={token ? <StatistichePage /> : <Navigate to="/login" />} />
-        <Route path="/mieventi" element={token ? <MyEventsPage /> : <Navigate to="/login" />} />*/}
       </Routes>
     </Router>
   );

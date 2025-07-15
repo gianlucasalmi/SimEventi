@@ -4,7 +4,6 @@ import { jwtDecode } from 'jwt-decode';
 import ModalEvento from '../components/ModalEvento';
 import ModalModificaEvento from '../components/ModalModificaEvento';
 import ModalCheckin from '../components/ModalCheckin';
-import FormRichiesta from '../components/FormRichiesta';
 import ModalRichiesta from '../components/ModalRichiesta';
 
 function DashboardPage() {

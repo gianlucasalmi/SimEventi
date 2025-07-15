@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken } = require('../middlewares/authMiddleware');
+const { verifyToken } = require('../utils/jwt');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+
 
 router.post('/', verifyToken, async (req, res) => {
   const { Oggetto, Quantità, CostoUnitario, Motivazione, CategoriaID } = req.body;

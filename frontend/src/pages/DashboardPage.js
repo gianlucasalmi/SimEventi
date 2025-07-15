@@ -83,7 +83,7 @@ function DashboardPage() {
                   <td>{r.Oggetto}</td>
                   <td>{r.Quantità}</td>
                   <td>{r.CostoUnitario}</td>
-                  <td>{r.CategoriaID}</td>
+                  <td>{r.Categoria}</td> {/* Usare il campo Categoria */}
                   <td>{r.Stato}</td>
                   <td>{r.Motivazione}</td>
                   <td>{new Date(r.DataRichiesta).toLocaleDateString()}</td>

@@ -230,10 +230,19 @@ function DashboardPage() {
       </div>
 
       {userInfo?.Ruolo === 'Dipendente' && (
-        <div className="mt-5">
-          <h2>Invia Richiesta di Acquisto</h2>
-          <FormRichiesta onSubmit={handleSubmitRichiesta} />
-        </div>
+        <>
+          <button
+            className="btn btn-primary mb-3"
+            onClick={() => setShowRichiestaModal(true)}
+          >
+            Crea Richiesta
+          </button>
+          <ModalRichiesta
+            show={showRichiestaModal}
+            onClose={() => setShowRichiestaModal(false)}
+            onSubmit={handleSubmitRichiesta}
+          />
+        </>
       )}
     </div>
   );

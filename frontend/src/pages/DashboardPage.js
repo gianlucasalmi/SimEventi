@@ -17,8 +17,12 @@ function DashboardPage() {
       })
         .then(res => res.json())
         .then(data => {
-          console.log('Risposta richieste:', data); // Log della risposta
-          setMieRichieste(Array.isArray(data) ? data : []); // Gestione del caso non array
+          if (data.error) {
+            console.error('Errore recupero richieste:', data.error);
+            setMieRichieste([]);
+          } else {
+            setMieRichieste(Array.isArray(data) ? data : []);
+          }
         })
         .catch(error => console.error('Errore fetch richieste:', error));
     }

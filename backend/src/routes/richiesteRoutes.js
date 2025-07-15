@@ -4,15 +4,16 @@ const { verifyToken } = require('../utils/jwt');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+
 router.post('/', verifyToken, async (req, res) => {
   const { Oggetto, Quantità, CostoUnitario, Motivazione, Categoria } = req.body;
   const utenteID = req.user.UtenteID;
-  
-  // Verifica che tutti i campi siano presenti
+
+  // Validazione dei campi
   if (!Oggetto || !Quantità || !CostoUnitario || !Motivazione || !Categoria) {
     return res.status(400).json({ error: 'Tutti i campi sono obbligatori' });
   }
-  
+
   try {
     const nuovaRichiesta = await prisma.richiestaAcquisto.create({
       data: {
@@ -36,9 +37,11 @@ router.get('/', verifyToken, async (req, res) => {
   try {
     console.log("Decoded user from token:", req.user);
     const { UtenteID, Ruolo } = req.user;
+
     if (!UtenteID) {
       throw new Error("UtenteID mancante nel token");
     }
+
     let richieste;
     if (Ruolo === 'Responsabile') {
       richieste = await prisma.richiestaAcquisto.findMany();
@@ -47,6 +50,7 @@ router.get('/', verifyToken, async (req, res) => {
         where: { UtenteID }
       });
     }
+
     res.json(richieste);
   } catch (error) {
     console.error('Errore backend richieste:', error);

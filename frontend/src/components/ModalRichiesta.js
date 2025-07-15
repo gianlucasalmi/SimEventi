@@ -31,53 +31,73 @@ function ModalRichiesta({ show, onClose, onSubmit }) {
           </div>
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
-              <input
-                name="Oggetto"
-                className="form-control mb-2"
-                placeholder="Nome del materiale"
-                value={formData.Oggetto}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="Quantità"
-                type="number"
-                className="form-control mb-2"
-                placeholder="Quantità"
-                value={formData.Quantità}
-                onChange={handleChange}
-                required
-              />
-              <input
-                name="CostoUnitario"
-                type="number"
-                step="0.01"
-                className="form-control mb-2"
-                placeholder="Costo unitario"
-                value={formData.CostoUnitario}
-                onChange={handleChange}
-                required
-              />
-              <textarea
-                name="Motivazione"
-                className="form-control mb-2"
-                placeholder="Motivazione"
-                value={formData.Motivazione}
-                onChange={handleChange}
-                required
-              />
-              <select
-                name="CategoriaID"
-                className="form-select mb-3"
-                value={formData.CategoriaID}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Seleziona una categoria</option>
-                <option value="1">Hardware</option>
-                <option value="2">Software</option>
-                <option value="3">Cancelleria</option>
-              </select>
+              <div className="mb-2">
+                <label htmlFor="Oggetto" className="form-label">Nome del materiale</label>
+                <input
+                  id="Oggetto"
+                  name="Oggetto"
+                  className="form-control"
+                  placeholder="Nome del materiale"
+                  value={formData.Oggetto}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-2">
+                <label htmlFor="Quantità" className="form-label">Quantità</label>
+                <input
+                  id="Quantità"
+                  name="Quantità"
+                  type="number"
+                  className="form-control"
+                  placeholder="Quantità"
+                  value={formData.Quantità}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-2">
+                <label htmlFor="CostoUnitario" className="form-label">Costo unitario</label>
+                <input
+                  id="CostoUnitario"
+                  name="CostoUnitario"
+                  type="number"
+                  step="0.01"
+                  className="form-control"
+                  placeholder="Costo unitario"
+                  value={formData.CostoUnitario}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-2">
+                <label htmlFor="Motivazione" className="form-label">Motivazione</label>
+                <textarea
+                  id="Motivazione"
+                  name="Motivazione"
+                  className="form-control"
+                  placeholder="Motivazione"
+                  value={formData.Motivazione}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="CategoriaID" className="form-label">Categoria</label>
+                <select
+                  id="CategoriaID"
+                  name="CategoriaID"
+                  className="form-select"
+                  value={formData.CategoriaID}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Seleziona una categoria</option>
+                  <option value="1">Hardware</option>
+                  <option value="2">Software</option>
+                  <option value="3">Cancelleria</option>
+                </select>
+              </div>
               <button className="btn btn-primary w-100" type="submit">
                 Invia richiesta
               </button>

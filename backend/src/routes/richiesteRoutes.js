@@ -26,4 +26,20 @@ router.post('/', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/', verifyToken, async (req, res) => {
+  try {
+    let richieste;
+    if (req.user.Ruolo === 'Responsabile') {
+      richieste = await prisma.richiestaAcquisto.findMany();
+    } else {
+      richieste = await prisma.richiestaAcquisto.findMany({
+        where: { UtenteID: req.user.UtenteID }
+      });
+    }
+    res.json(richieste);
+  } catch (error) {
+    res.status(500).json({ error: 'Errore durante il recupero delle richieste' });
+  }
+});
+
 module.exports = router;

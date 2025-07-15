@@ -4,6 +4,8 @@ import { jwtDecode } from 'jwt-decode';
 import ModalEvento from '../components/ModalEvento';
 import ModalModificaEvento from '../components/ModalModificaEvento';
 import ModalCheckin from '../components/ModalCheckin';
+import FormRichiesta from '../components/FormRichiesta';
+import ModalRichiesta from '../components/ModalRichiesta';
 
 function DashboardPage() {
   const [eventi, setEventi] = useState([]);
@@ -14,6 +16,7 @@ function DashboardPage() {
   const [showCheckinModal, setShowCheckinModal] = useState(false);
   const [eventoCheckin, setEventoCheckin] = useState(null);
   const [mieIscrizioni, setMieIscrizioni] = useState([]);
+  const [showRichiestaModal, setShowRichiestaModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -102,11 +105,30 @@ function DashboardPage() {
     }
   };
 
+  const handleSubmitRichiesta = async formData => {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/richieste`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (res.ok) {
+      alert('Richiesta inviata con successo!');
+    } else {
+      alert('Errore durante l\'invio della richiesta');
+    }
+  };
+
   return (
     <div className="container mt-5">
-    {userInfo && (
+      {userInfo && (
         <div className="mb-4">
           <h4>Benvenuto {userInfo.Ruolo}: {userInfo.Nome} {userInfo.Cognome}</h4>
+          <h2>{userInfo.Ruolo === 'Dipendente' ? 'Materiali Disponibili' : 'Richieste di Acquisto'}</h2> {/* Titolo dinamico */}
         </div>
       )}
       {userInfo?.Ruolo === 'Organizzatore' && (
@@ -129,6 +151,11 @@ function DashboardPage() {
         show={showCheckinModal}
         onClose={() => setShowCheckinModal(false)}
         evento={eventoCheckin}
+      />
+      <ModalRichiesta
+        show={showRichiestaModal}
+        onClose={() => setShowRichiestaModal(false)}
+        onSubmit={handleSubmitRichiesta}
       />
 
       <h2>Eventi disponibili</h2>
@@ -202,7 +229,12 @@ function DashboardPage() {
         })}
       </div>
 
-      
+      {userInfo?.Ruolo === 'Dipendente' && (
+        <div className="mt-5">
+          <h2>Invia Richiesta di Acquisto</h2>
+          <FormRichiesta onSubmit={handleSubmitRichiesta} />
+        </div>
+      )}
     </div>
   );
 }

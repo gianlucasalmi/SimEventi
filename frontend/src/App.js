@@ -18,15 +18,15 @@ function App() {
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <Link className="navbar-brand" to="/">EVENTS FINDER</Link>
+        <Link className="navbar-brand" to="/">Gestione Acquisti Aziendali</Link>
         <div className="collapse navbar-collapse">
           <div className="navbar-nav me-auto">
             {token && <Link className="nav-link" to="/dashboard">Dashboard</Link>}
             {token && jwtDecode(token).Ruolo === 'Dipendente' && (
-              <Link className="nav-link" to="/mieventi">I miei eventi</Link>
+              <Link className="nav-link" to="/mieventi">Materiali Disponibili</Link>
             )}
-            {token && jwtDecode(token).Ruolo === 'Organizzatore' && (
-              <Link className="nav-link" to="/statistiche">Statistiche</Link>
+            {token && jwtDecode(token).Ruolo === 'Responsabile' && (
+              <Link className="nav-link" to="/statistiche">Richieste di Acquisto</Link>
             )}
           </div>
           {token && (
@@ -49,8 +49,8 @@ function App() {
           path="/dashboard"
           element={token ? <DashboardPage /> : <Navigate to="/login" />}
         />
-        <Route path="/statistiche" element={token ? <StatistichePage /> : <Navigate to="/login" />} />
-        <Route path="/mieventi" element={token ? <MyEventsPage /> : <Navigate to="/login" />} />
+        {/*<Route path="/statistiche" element={token ? <StatistichePage /> : <Navigate to="/login" />} />
+        <Route path="/mieventi" element={token ? <MyEventsPage /> : <Navigate to="/login" />} />*/}
       </Routes>
     </Router>
   );

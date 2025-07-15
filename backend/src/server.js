@@ -15,7 +15,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://simeventisite.onrender.com', // oppure usa '*' per consentire tutte le origini
+  credentials: true,
+}));
 app.use(express.json());
 app.use('/api/utenti', authRoutes);
 //app.use('/api/eventi', eventoRoutes);

@@ -20,9 +20,9 @@ function LoginForm({ onLogin }) {
       // Reindirizza in base al ruolo
       const user = JSON.parse(atob(result.token.split('.')[1]));
       if (user.Ruolo === 'Dipendente') {
-        navigate('/mieventi');
+        navigate('/dashboard'); // Corretto: reindirizza alla dashboard
       } else if (user.Ruolo === 'Responsabile') {
-        navigate('/dashboard');
+        navigate('/dashboard'); // Responsabili usano la stessa dashboard
       }
     } else {
       alert(result.error);

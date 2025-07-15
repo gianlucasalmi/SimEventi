@@ -6,7 +6,7 @@ function ModalRichiesta({ show, onClose, onSubmit }) {
     Quantità: 1,
     CostoUnitario: 0,
     Motivazione: '',
-    CategoriaID: '',
+    Categoria: '',
   });
 
   const handleChange = e => {
@@ -83,19 +83,19 @@ function ModalRichiesta({ show, onClose, onSubmit }) {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="CategoriaID" className="form-label">Categoria</label>
+                <label htmlFor="Categoria" className="form-label">Categoria</label>
                 <select
-                  id="CategoriaID"
-                  name="CategoriaID"
+                  id="Categoria"
+                  name="Categoria"
                   className="form-select"
-                  value={formData.CategoriaID}
+                  value={formData.Categoria}
                   onChange={handleChange}
                   required
                 >
                   <option value="">Seleziona una categoria</option>
-                  <option value="1">Hardware</option>
-                  <option value="2">Software</option>
-                  <option value="3">Cancelleria</option>
+                  <option value="Hardware">Hardware</option>
+                  <option value="Software">Software</option>
+                  <option value="Cancelleria">Cancelleria</option>
                 </select>
               </div>
               <button className="btn btn-primary w-100" type="submit">

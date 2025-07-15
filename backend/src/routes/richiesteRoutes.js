@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 
 router.post('/', verifyToken, async (req, res) => {
-  const { Oggetto, Quantità, CostoUnitario, Motivazione, CategoriaID } = req.body;
+  const { Oggetto, Quantità, CostoUnitario, Motivazione, Categoria } = req.body;
   const utenteID = req.user.UtenteID;
 
   try {
@@ -17,12 +17,13 @@ router.post('/', verifyToken, async (req, res) => {
         CostoUnitario,
         Motivazione,
         Stato: 'In attesa',
-        CategoriaID,
+        Categoria,
         UtenteID: utenteID,
       },
     });
     res.status(201).json(nuovaRichiesta);
   } catch (error) {
+    console.error('Errore POST richieste:', error);
     res.status(500).json({ error: 'Errore durante la creazione della richiesta' });
   }
 });
